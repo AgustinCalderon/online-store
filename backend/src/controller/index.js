@@ -1,11 +1,11 @@
-const procductModel = require('../model/index');
+const ProcductModel = require('../model/index');
 
-class products{
+class Products{
     static async getAll(req, res){
-        const {data, error} = procductModel.getAll()        
-        error ? res.status(404).json({error: 'products not found'})
+        const {data, error} = await ProcductModel.getAll()        
+        error ? res.status(400).json({error: 'products not found'})
               : res.status(200).json(data);
     } 
 }
 
-module.exports = products;
+module.exports = Products;
