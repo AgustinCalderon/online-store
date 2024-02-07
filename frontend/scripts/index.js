@@ -4,7 +4,6 @@ const containerProducts = $.querySelector('#containerProducts')
 const cartStructure = () => ({title, image, description, price}) => {
     return `<div class="cart">
     <h3 class="cart-title">${title}</h3>
-    <p class="cart-desc" >${description}</p>
     <img class="cart-img" src="${image}">
     <strong class="cart-price">${price}</strong>
     <button class="cart-button">Add Cart</button>
