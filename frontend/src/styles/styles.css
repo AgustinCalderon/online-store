@@ -6,6 +6,7 @@
 
 h1 {
     text-align: center;
+    border: 1px solid green;
 }
 
 .container{
@@ -34,10 +35,10 @@ h1 {
     text-align: center;
 }
 
-.cart-desc{
+/* .cart-desc{
     font-size: 1rem;
     text-align: center;
-}
+} */
 
 .cart-img{
     width: 70%;
