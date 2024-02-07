@@ -1,29 +1,27 @@
 const dotenv = require('dotenv');
-dotenv.config();
-const {mongoClient} = require('mongodb');
+dotenv.config()
+const {MongoClient} = require('mongodb')
 
-const client = new mongoClient(process.env.MONGO_URL)
+const client = new MongoClient(process.env.MONGO_URL)
 
-async function connect() {
+async function connectToMongoDB() {
     try {
-        await client.connect();
-        console.log('Connecting to the database');
+        await client.connect()
+        console.log('Connecting to the database')
         return client
     } catch (error) {   
-        console.error('Error connecting to the database');
-        console.error(error);
-        return null;
+        console.error('Error connecting to the database')
+        return null
     }    
 }
 
-async function disconnect() {
+async function disconnectToMongoDB() {
     try {
-        await client.close();
-        console.log('Disconnecting from the database');
+        await client.close()
+        console.log('Disconnecting from the database')
     } catch (error) {
-        console.error('Error disconnecting from the database');
-        console.error(error);
+        console.log('Error disconnecting from the database', error)
     }
 }
 
-module.exports = {connect, disconnect}
+module.exports = {connectToMongoDB, disconnectToMongoDB}
