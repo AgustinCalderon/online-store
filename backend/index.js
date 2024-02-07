@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     res.send('Api is working!')
 })
 
-app.use('/api', routerProducts)
+app.use(routerProducts)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
