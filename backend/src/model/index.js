@@ -1,12 +1,23 @@
-const data = require('../../data.json');
+const {connectToMongoDB, disconnectToMongoDB} = require('../setting/index')
 
-class procductModel {
+class ProcductModel {
     static async getAll() {
-        if (!data) {
-            return {data : null, error: true};
+        try {
+            const clientMongo = await connectToMongoDB()
+            if (!clientMongo) {
+                return Error('Error connecting to the database')
+            }
+            const dataArray = await clientMongo.db('store').collection('products').find().toArray()
+            if (!dataArray) {
+                return {data: null, error: true}
+            }
+            console.log(dataArray)
+            await disconnectToMongoDB()
+            return {data: dataArray, error: false}
+        } catch (error) {
+            return error
         }
-        return {data, error: false};
     }
 }
 
-module.exports = procductModel;
+module.exports = ProcductModel
