@@ -1,19 +1,18 @@
 const $ = document;
 const containerProducts = $.querySelector('#containerProducts') 
 
-const cartStructure = () => ({title, image, description, price}) => {
-    return `<div class="cart">
-    <h3 class="cart-title">${title}</h3>
-    <img class="cart-img" src="${image}">
-    <strong class="cart-price">${price}</strong>
-    <button class="cart-button">Add Cart</button>
+const cardStructure = () => ({title, image, price, id}) => {
+    return `<div class="card" id="${id}">
+    <img class="card-img" src="${image}">
+    <a class="card-title">${title}</a>
+    <strong class="card-price">$${price}</strong>
     </div>`
 }
 
-const renderCarts = (products) => {
+const renderCards = (products) => {
     containerProducts.innerHTML += ``    
     products.map(item => {
-        containerProducts.innerHTML += cartStructure()(item)
+        containerProducts.innerHTML += cardStructure()(item)
     })
 }
 
@@ -25,11 +24,26 @@ const getAllProducts = async () => {
             throw new Error('Network response was not ok')
         } 
         const data = await response.json()
-        renderCarts(data)
+        console.log(data)
+        renderCards(data)
     }
     catch (error) {
         alert('There has been a problem with your fetch operation: ', error.message)
     }
 }
 
-getAllProducts()
+const handleDetailCard = (id) => {
+    window.location.href = `../src/pages/detail.html?idproduct=${id}`
+}
+
+const addClickDetailCard = () => {
+    const cards = document.querySelectorAll('.card')
+    cards.forEach((card) => card.addEventListener('click', (evento) => {
+        handleDetailCard(evento.target.id)
+    }))
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await getAllProducts()
+    addClickDetailCard()
+})
